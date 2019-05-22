@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>Game Over</h1>
+<mat-dialog-content>
+  <p><strong>Current High Score:</strong> {{data.highScore}}</p>
+  <p><strong>Your Score:</strong> {{data.score}}</p>
+  <p *ngIf="data.score > data.highScore"><strong>NEW HIGH SCORE!</strong></p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>New Game</button>
+</mat-dialog-actions>

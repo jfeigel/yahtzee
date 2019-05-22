@@ -1,0 +1,27 @@
+<div class="roll-container">
+  <div class="dice-container">
+    <app-die [data]="dice[0]" (click)="dice[0].held = !dice[0].held"></app-die>
+    <app-die [data]="dice[1]" (click)="dice[1].held = !dice[1].held"></app-die>
+    <app-die [data]="dice[2]" (click)="dice[2].held = !dice[2].held"></app-die>
+    <app-die [data]="dice[3]" (click)="dice[3].held = !dice[3].held"></app-die>
+    <app-die [data]="dice[4]" (click)="dice[4].held = !dice[4].held"></app-die>
+  </div>
+  <button mat-raised-button color="primary" (click)="rollDie(null)" [disabled]="this.roll >= 3">Roll</button>
+</div>
+<hr/>
+<div>
+  <mat-card *ngFor="let category of categories; let i = index;" [ngClass]="{'hidden': i === 6}">
+    <mat-card-header>
+      <mat-card-title>{{category.title}}</mat-card-title>
+      <mat-card-subtitle>Possible Points: {{category.pointsPossible}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p *ngIf="category.used">Points Collected: {{category.pointsCollected}}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="accent" [disabled]="category.used" (click)="category.calculate()">USE</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<h2>Score: {{score}}</h2>
+<h4>Current High Score: {{currentHighScore}}</h4>
