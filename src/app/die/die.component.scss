@@ -24,3 +24,14 @@
     border-color: #00E676;
   }
 }
+
+@media only screen and (max-width: 600px) {
+  :host {
+    margin: 0 .5rem;
+  }
+
+  .die-face {
+    height: calc(100vw / 7);
+    width: calc(100vw / 7)
+  }
+}

@@ -2,6 +2,15 @@ h2, h4, p {
   text-align: center;
 }
 
+.reset-container {
+  display: flex;
+  padding: 1rem;
+
+  span {
+    flex: 1;
+  }
+}
+
 .roll-container {
   display: flex;
   flex-direction: column;
@@ -19,6 +28,7 @@ h2, h4, p {
 
 hr {
   margin-bottom: 2.5rem;
+  width: 100%;
 }
 
 .hidden {
@@ -27,11 +37,57 @@ hr {
 
 .mat-card {
   margin: 1rem;
-  width: calc((100% / 7) - 4rem);
+  width: calc((100vw / 7) - 4rem);
   display: inline-block;
+}
+
+:host /deep/ .mat-card-header-text {
+  margin: 0;
 }
 
 .mat-card-actions {
   display: flex;
   justify-content: center;
+}
+
+.score-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media only screen and (max-width: 960px) {
+  :host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .mat-card {
+    width: calc(100vw / 10);
+    margin: .5rem;
+  }
+
+  .hidden {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  :host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .mat-card {
+    width: calc(100vw / 5);
+    margin: .5rem;
+  }
+
+  .hidden {
+    display: none;
+  }
 }

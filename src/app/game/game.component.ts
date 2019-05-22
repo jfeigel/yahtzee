@@ -41,7 +41,7 @@ export class GameComponent implements OnInit {
           this.categories[index].pointsCollected = score;
           this.score += score;
         }
-        this._reset();
+        this._resetDice();
       }
     },
     {
@@ -58,7 +58,7 @@ export class GameComponent implements OnInit {
           this.categories[index].pointsCollected = score;
           this.score += score;
         }
-        this._reset();
+        this._resetDice();
       }
     },
     {
@@ -75,7 +75,7 @@ export class GameComponent implements OnInit {
           this.categories[index].pointsCollected = score;
           this.score += score;
         }
-        this._reset();
+        this._resetDice();
       }
     },
     {
@@ -92,7 +92,7 @@ export class GameComponent implements OnInit {
           this.categories[index].pointsCollected = score;
           this.score += score;
         }
-        this._reset();
+        this._resetDice();
       }
     },
     {
@@ -109,7 +109,7 @@ export class GameComponent implements OnInit {
           this.categories[index].pointsCollected = score;
           this.score += score;
         }
-        this._reset();
+        this._resetDice();
       }
     },
     {
@@ -126,7 +126,7 @@ export class GameComponent implements OnInit {
           this.categories[index].pointsCollected = score;
           this.score += score;
         }
-        this._reset();
+        this._resetDice();
       }
     },
     {
@@ -149,13 +149,13 @@ export class GameComponent implements OnInit {
         const results = _.countBy(this.dice, 'number');
         const values = _.values(results);
         if (values.indexOf(3) === -1 && values.indexOf(4) === -1) {
-          this._reset();
+          this._resetDice();
           return;
         }
         const score = _.sumBy(this.dice, 'number');
         this.categories[index].pointsCollected = score;
         this.score += score;
-        this._reset();
+        this._resetDice();
       }
     },
     {
@@ -169,13 +169,13 @@ export class GameComponent implements OnInit {
         const results = _.countBy(this.dice, 'number');
         const values = _.values(results);
         if (values.indexOf(4) === -1) {
-          this._reset();
+          this._resetDice();
           return;
         }
         const score = _.sumBy(this.dice, 'number');
         this.categories[index].pointsCollected = score;
         this.score += score;
-        this._reset();
+        this._resetDice();
       }
     },
     {
@@ -195,7 +195,7 @@ export class GameComponent implements OnInit {
           this.score += score;
         }
 
-        this._reset();
+        this._resetDice();
       }
     },
     {
@@ -216,7 +216,7 @@ export class GameComponent implements OnInit {
           this.categories[index].pointsCollected = score;
           this.score += score;
         }
-        this._reset();
+        this._resetDice();
       }
     },
     {
@@ -236,7 +236,7 @@ export class GameComponent implements OnInit {
           this.categories[index].pointsCollected = score;
           this.score += score;
         }
-        this._reset();
+        this._resetDice();
       }
     },
     {
@@ -250,7 +250,7 @@ export class GameComponent implements OnInit {
         this.categories[index].pointsCollected = score;
         this.categories[index].used = true;
         this.score += score;
-        this._reset();
+        this._resetDice();
       }
     },
     {
@@ -262,7 +262,7 @@ export class GameComponent implements OnInit {
         const index = _.findIndex(this.categories, ['title', 'Yahtzee']);
         if (_.uniqBy(this.dice, 'number').length !== 1) {
           this.categories[index].used = true;
-          this._reset();
+          this._resetDice();
           return;
         }
 
@@ -274,7 +274,7 @@ export class GameComponent implements OnInit {
           this.categories[index].used = true;
           this.score += 50;
         }
-        this._reset();
+        this._resetDice();
       }
     }
   ];
@@ -306,11 +306,21 @@ export class GameComponent implements OnInit {
     }
   }
 
-  private _getRand() {
+  public resetGame(): void {
+    this.currentHighScore = localStorage.getItem('highScore');
+    this.categories.forEach((category) => {
+      category.used = false;
+      category.pointsCollected = 0;
+    });
+    this.score = 0;
+    this._resetDice();
+  }
+
+  private _getRand(): number {
     return Math.floor(Math.random() * 6 + 1);
   }
 
-  private _reset() {
+  private _resetDice(): void {
     this.roll = 0;
     this.dice.forEach(die => {
       die.held = false;
@@ -321,7 +331,7 @@ export class GameComponent implements OnInit {
     }
   }
 
-  private _finish() {
+  private _finish(): void {
     const upperScore = _.chain(this.categories).slice(0, 6).sumBy('pointsCollected').value();
     if (upperScore >= 63) {
       this.score += 35;
@@ -341,13 +351,7 @@ export class GameComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.currentHighScore = localStorage.getItem('highScore');
-      this.categories.forEach((category) => {
-        category.used = false;
-        category.pointsCollected = 0;
-      });
-      this.score = 0;
-      this._reset();
+      this.resetGame();
     });
   }
 

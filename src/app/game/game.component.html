@@ -1,3 +1,7 @@
+<div class="reset-container">
+  <span>&nbsp;</span>
+  <button mat-raised-button color="warn" (click)="resetGame()">Reset Game</button>
+</div>
 <div class="roll-container">
   <div class="dice-container">
     <app-die [data]="dice[0]" (click)="dice[0].held = !dice[0].held"></app-die>
@@ -19,9 +23,11 @@
       <p *ngIf="category.used">Points Collected: {{category.pointsCollected}}</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="accent" [disabled]="category.used" (click)="category.calculate()">USE</button>
+      <button mat-flat-button color="accent" [disabled]="category.used || roll === 0" (click)="category.calculate()">USE</button>
     </mat-card-actions>
   </mat-card>
 </div>
-<h2>Score: {{score}}</h2>
-<h4>Current High Score: {{currentHighScore}}</h4>
+<div class="score-container">
+  <h2>Score: {{score}}</h2>
+  <h4>Current High Score: {{currentHighScore}}</h4>
+</div>
