@@ -1,4 +1,4 @@
-[[https://github.com/jfeigel/yahtzee/blob/master/yahtzee.png|alt=Yahtzee]]
+![Yahtzee](https://github.com/jfeigel/yahtzee/blob/master/yahtzee.png)
 
 # Yahtzee
 
