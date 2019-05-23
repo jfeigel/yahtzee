@@ -17,7 +17,7 @@
   <mat-card *ngFor="let category of categories; let i = index;" [ngClass]="{'hidden': i === 6}">
     <mat-card-header>
       <mat-card-title>{{category.title}}</mat-card-title>
-      <mat-card-subtitle>Possible Points: {{category.pointsPossible}}</mat-card-subtitle>
+      <mat-card-subtitle>Maximum Points: {{category.pointsPossible}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <p *ngIf="category.used">Points Collected: {{category.pointsCollected}}</p>
@@ -28,6 +28,6 @@
   </mat-card>
 </div>
 <div class="score-container">
-  <h2>Score: {{score}}</h2>
+  <h2>Score: {{score}} <span *ngIf="newScore" class="newScore">+{{newScore}}</span></h2>
   <h4>Current High Score: {{currentHighScore}}</h4>
 </div>

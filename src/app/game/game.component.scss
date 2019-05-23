@@ -1,3 +1,5 @@
+@import '~@angular/material/theming';
+
 h2, h4, p {
   text-align: center;
 }
@@ -54,6 +56,10 @@ hr {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.newScore {
+  color: mat-color($mat-green, 'A400');
 }
 
 @media only screen and (max-width: 960px) {

@@ -23,6 +23,7 @@ export class GameComponent implements OnInit {
     new Die()
   ];
   score = 0;
+  newScore = null;
   roll = 0;
   currentHighScore;
 
@@ -37,9 +38,12 @@ export class GameComponent implements OnInit {
         this.categories[index].used = true;
         const results = _.countBy(this.dice, 'number');
         if (results[1]) {
-          const score = results[1];
+          let score = results[1];
           this.categories[index].pointsCollected = score;
+          const yahtzeeScore = this._checkYahtzee();
+          score += yahtzeeScore;
           this.score += score;
+          this._addNewScore(score);
         }
         this._resetDice();
       }
@@ -54,9 +58,12 @@ export class GameComponent implements OnInit {
         this.categories[index].used = true;
         const results = _.countBy(this.dice, 'number');
         if (results[2]) {
-          const score = results[2] * 2;
+          let score = results[2] * 2;
           this.categories[index].pointsCollected = score;
+          const yahtzeeScore = this._checkYahtzee();
+          score += yahtzeeScore;
           this.score += score;
+          this._addNewScore(score);
         }
         this._resetDice();
       }
@@ -71,9 +78,12 @@ export class GameComponent implements OnInit {
         this.categories[index].used = true;
         const results = _.countBy(this.dice, 'number');
         if (results[3]) {
-          const score = results[3] * 3;
+          let score = results[3] * 3;
           this.categories[index].pointsCollected = score;
+          const yahtzeeScore = this._checkYahtzee();
+          score += yahtzeeScore;
           this.score += score;
+          this._addNewScore(score);
         }
         this._resetDice();
       }
@@ -88,9 +98,12 @@ export class GameComponent implements OnInit {
         this.categories[index].used = true;
         const results = _.countBy(this.dice, 'number');
         if (results[4]) {
-          const score = results[4] * 4;
+          let score = results[4] * 4;
           this.categories[index].pointsCollected = score;
+          const yahtzeeScore = this._checkYahtzee();
+          score += yahtzeeScore;
           this.score += score;
+          this._addNewScore(score);
         }
         this._resetDice();
       }
@@ -105,9 +118,12 @@ export class GameComponent implements OnInit {
         this.categories[index].used = true;
         const results = _.countBy(this.dice, 'number');
         if (results[5]) {
-          const score = results[5] * 5;
+          let score = results[5] * 5;
           this.categories[index].pointsCollected = score;
+          const yahtzeeScore = this._checkYahtzee();
+          score += yahtzeeScore;
           this.score += score;
+          this._addNewScore(score);
         }
         this._resetDice();
       }
@@ -122,9 +138,12 @@ export class GameComponent implements OnInit {
         this.categories[index].used = true;
         const results = _.countBy(this.dice, 'number');
         if (results[6]) {
-          const score = results[6] * 6;
+          let score = results[6] * 6;
           this.categories[index].pointsCollected = score;
+          const yahtzeeScore = this._checkYahtzee();
+          score += yahtzeeScore;
           this.score += score;
+          this._addNewScore(score);
         }
         this._resetDice();
       }
@@ -152,9 +171,12 @@ export class GameComponent implements OnInit {
           this._resetDice();
           return;
         }
-        const score = _.sumBy(this.dice, 'number');
+        let score = _.sumBy(this.dice, 'number');
         this.categories[index].pointsCollected = score;
+        const yahtzeeScore = this._checkYahtzee();
+        score += yahtzeeScore;
         this.score += score;
+        this._addNewScore(score);
         this._resetDice();
       }
     },
@@ -172,9 +194,12 @@ export class GameComponent implements OnInit {
           this._resetDice();
           return;
         }
-        const score = _.sumBy(this.dice, 'number');
+        let score = _.sumBy(this.dice, 'number');
         this.categories[index].pointsCollected = score;
+        const yahtzeeScore = this._checkYahtzee();
+        score += yahtzeeScore;
         this.score += score;
+        this._addNewScore(score);
         this._resetDice();
       }
     },
@@ -190,9 +215,12 @@ export class GameComponent implements OnInit {
         const values = _.values(results);
 
         if (values.length === 2 && ((values[0] === 2 && values[1] === 3) || (values[0] === 3 && values[1] === 2))) {
-          const score = this.categories[index].pointsPossible;
+          let score = this.categories[index].pointsPossible;
           this.categories[index].pointsCollected = score;
+          const yahtzeeScore = this._checkYahtzee();
+          score += yahtzeeScore;
           this.score += score;
+          this._addNewScore(score);
         }
 
         this._resetDice();
@@ -212,9 +240,12 @@ export class GameComponent implements OnInit {
           _.intersection(results, [2, 3, 4, 5]).length === 4 ||
           _.intersection(results, [3, 4, 5, 6]).length === 4
         ) {
-          const score = this.categories[index].pointsPossible;
+          let score = this.categories[index].pointsPossible;
           this.categories[index].pointsCollected = score;
+          const yahtzeeScore = this._checkYahtzee();
+          score += yahtzeeScore;
           this.score += score;
+          this._addNewScore(score);
         }
         this._resetDice();
       }
@@ -232,9 +263,12 @@ export class GameComponent implements OnInit {
           _.intersection(results, [1, 2, 3, 4, 5]).length === 5 ||
           _.intersection(results, [2, 3, 4, 5, 6]).length === 5
         ) {
-          const score = this.categories[index].pointsPossible;
+          let score = this.categories[index].pointsPossible;
           this.categories[index].pointsCollected = score;
+          const yahtzeeScore = this._checkYahtzee();
+          score += yahtzeeScore;
           this.score += score;
+          this._addNewScore(score);
         }
         this._resetDice();
       }
@@ -245,11 +279,14 @@ export class GameComponent implements OnInit {
       title: 'Chance',
       used: false,
       calculate: () => {
-        const score = _.sumBy(this.dice, 'number');
+        let score = _.sumBy(this.dice, 'number');
         const index = _.findIndex(this.categories, ['title', 'Chance']);
         this.categories[index].pointsCollected = score;
         this.categories[index].used = true;
+        const yahtzeeScore = this._checkYahtzee();
+        score += yahtzeeScore;
         this.score += score;
+        this._addNewScore(score);
         this._resetDice();
       }
     },
@@ -266,14 +303,10 @@ export class GameComponent implements OnInit {
           return;
         }
 
-        if (this.categories[index].pointsCollected !== 0) {
-          this.categories[index].pointsCollected += 100;
-          this.score += 100;
-        } else {
-          this.categories[index].pointsCollected += 50;
-          this.categories[index].used = true;
-          this.score += 50;
-        }
+        this.categories[index].pointsCollected += 50;
+        this.categories[index].used = true;
+        this.score += 50;
+        this._addNewScore(50);
         this._resetDice();
       }
     }
@@ -290,10 +323,11 @@ export class GameComponent implements OnInit {
       this.roll++;
       this.dice.forEach((die) => {
         if (!die.held) {
-          let number = 0;
+          // let number = 0;
           const interval = setInterval(() => {
-            die.number = (number % 6) + 1;
-            number++;
+            die.number = this._getRand();
+            // die.number = (number % 6) + 1;
+            // number++;
           }, 25);
           setTimeout(() => {
             clearInterval(interval);
@@ -309,8 +343,10 @@ export class GameComponent implements OnInit {
   public resetGame(): void {
     this.currentHighScore = localStorage.getItem('highScore');
     this.categories.forEach((category) => {
-      category.used = false;
-      category.pointsCollected = 0;
+      if (category.title) {
+        category.used = false;
+        category.pointsCollected = 0;
+      }
     });
     this.score = 0;
     this._resetDice();
@@ -318,6 +354,23 @@ export class GameComponent implements OnInit {
 
   private _getRand(): number {
     return Math.floor(Math.random() * 6 + 1);
+  }
+
+  private _addNewScore(score: number): void {
+    this.newScore = score;
+    setTimeout(() => {
+      this.newScore = null;
+    }, 2000);
+  }
+
+  private _checkYahtzee(): number {
+    const index = _.findIndex(this.categories, ['title', 'Yahtzee']);
+    if (_.uniqBy(this.dice, 'number').length === 1 && this.categories[index].used === true) {
+      this.categories[index].pointsCollected += 100;
+      return 100;
+    }
+
+    return 0;
   }
 
   private _resetDice(): void {
