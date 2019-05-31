@@ -43,7 +43,7 @@ hr {
   display: inline-block;
 }
 
-:host /deep/ .mat-card-header-text {
+:host ::ng-deep .mat-card-header-text {
   margin: 0;
 }
 
