@@ -115,7 +115,7 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "baseHref": "https://jfeigel.github.io/yahtzee"
+            "baseHref": "https://jfeigel.github.io/yahtzee/"
           }
         }
       }
