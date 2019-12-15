@@ -114,7 +114,9 @@
         },
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
-          "options": {}
+          "options": {
+            "base-href": "https://jfeigel.github.io/yahtzee"
+          }
         }
       }
     },
